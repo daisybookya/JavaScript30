@@ -58,6 +58,51 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+let playmusic = (e)=>{
+  //偵測類型:鍵盤/滑鼠點擊
+  switch(e.type){
+    case 'keydown':
+      var keyCode = e.keyCode;
+      break;
+    case 'mousedown':
+      //判斷是否點擊到子物件
+      if(e.path[0].className !== 'key'){
+        keyCode = e.path[0].parentElement.dataset.key;
+      }else{
+        keyCode = e.target.dataset.key;
+      }
+      break;
+  }
+  
+  //選擇物件
+  let key = document.querySelector(`div[data-key="${keyCode}"]`);
+  //選擇audio
+  let music = document.querySelector(`audio[data-key="${keyCode}"]`);  
+  if(!music){
+    return false;
+  };
+  key.classList.add('playing');
+  music.currentTime = 0;
+  music.play();
+}
+//移除播放記號邊框
+let removeMark = (e)=>{
+  let keyCode = e.target.dataset.key;
+  let key = document.querySelector(`div[data-key="${keyCode}"]`);
+  key.classList.remove('playing');
+}
+//監聽鍵盤事件
+window.addEventListener('keydown',playmusic)
+//監聽滑鼠事件
+var mainKey = document.querySelectorAll('.key');
+mainKey.forEach(function(item, index, array){
+  item.addEventListener('mousedown',playmusic)
+});
+//監聽音效事件(以播放完為主再移除記號)
+var mainAudio = document.querySelectorAll('audio');
+mainAudio.forEach(function(item, index, array){
+  item.addEventListener('ended',removeMark)
+});
 
 </script>
 

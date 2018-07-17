@@ -7,7 +7,7 @@
 
 ## 實踐學習心得
 
-* audio Methods基本應用認識
+* audio Methods基本應用認識(currentTime/play/ended)
 * forEach的使用
 * data屬性的應用
 

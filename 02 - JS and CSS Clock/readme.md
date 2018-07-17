@@ -7,11 +7,12 @@
 
 ## 學習心得
 
-* javascript date api基本應用
+* javascript date api基本應用(getHours/getMinutes/getSeconds)
 * css transform-rotate(旋轉)/transform-origin(旋轉的中心點)應用
 
 
 ## 新增修改的部分
 
 * 修改時鐘外觀細節
+* 時間幾小時的方法以%取餘數的方法計算
 

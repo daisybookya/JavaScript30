@@ -58,7 +58,7 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-let playmusic = (e)=>{
+function playmusic(e){ 
   //偵測類型:鍵盤/滑鼠點擊
   switch(e.type){
     case 'keydown':
@@ -66,11 +66,13 @@ let playmusic = (e)=>{
       break;
     case 'mousedown':
       //判斷是否點擊到子物件
-      if(e.path[0].className !== 'key'){
-        keyCode = e.path[0].parentElement.dataset.key;
-      }else{
-        keyCode = e.target.dataset.key;
-      }
+      // if(e.path[0].className !== 'key'){
+      //   keyCode = e.path[0].parentElement.dataset.key;
+      // }else{
+      //   keyCode = e.target.dataset.key;
+      // }
+      keyCode = this.getAttribute('data-key');
+      
       break;
   }
   

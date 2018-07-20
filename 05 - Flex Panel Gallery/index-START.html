@@ -24,6 +24,7 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
     }
 
     .panel {
@@ -39,8 +40,13 @@
         flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
         background 0.2s;
       font-size: 20px;
+      flex-direction: column;
+      justify-content: center;
+      display: flex;
+      flex:1;
       background-size:cover;
       background-position:center;
+      
     }
 
 
@@ -54,6 +60,10 @@
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
     }
 
     .panel p {
@@ -62,14 +72,22 @@
       text-shadow:0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
       font-size: 2em;
     }
+    .panel p:first-child{
+      transform: translateY(-100%);
+    }
     .panel p:nth-child(2) {
       font-size: 4em;
     }
-
+    .panel p:last-child{
+      transform: translateY(100%);
+    }
     .panel.open {
       font-size:40px;
+      flex:5;
     }
-
+    .panel.active p:first-child,.panel.active p:last-child{
+      transform: translateY(0);
+    }
   </style>
 
 
@@ -102,7 +120,24 @@
   </div>
 
   <script>
+    let panel = document.querySelectorAll('.panel');
 
+    function togglePanel(){
+      this.classList.toggle('open');
+    };
+    function activePanel(e){
+      console.log('end');
+      console.log(e.propertyName);
+      if(e.propertyName.includes('flex')){
+        this.classList.toggle('active');
+      }
+    };
+    let eachPanel = panel.forEach(function(item){
+      item.addEventListener('click',togglePanel);
+    });
+    let panelActive = panel.forEach(function(item){
+      item.addEventListener('transitionend',activePanel)
+    });
   </script>
 
 

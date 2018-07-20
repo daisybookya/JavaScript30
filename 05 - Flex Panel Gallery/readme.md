@@ -8,6 +8,7 @@
 ## 學習心得
 
 gallery主要以css flex相關屬性結合transition應用:
+ 
 (最外層container必須設定display:flex;或display:inline-flex; 否則內層css相關屬性都會失效)
 * display:flex / display:inline-flex
 * flex
@@ -20,11 +21,11 @@ gallery主要以css flex相關屬性結合transition應用:
 
 ### css:flex屬性
 
-| 屬性        | 值          | 說明  |
+| 屬性        | 值          | 說明          |
 | ------------- |:-------------:| -----:|
 | flex      | auto | 此屬性將 flex-grow, flex-shrink, flex-basis合併寫在一起 |
 |        | initial      |     |
-|    | numner(比例)      |      |
+|    | number(比例)      |      |
 |    | none      |      |
 
 
@@ -38,6 +39,7 @@ gallery主要以css flex相關屬性結合transition應用:
 | toggle( String [, force] ) | 如果沒有就新增，如果有就移除(直接操作classList) | 
 | contains(string) | 檢測是否包含，返回true/false      | 
 | item(number) | 返回元素上指定的第幾個class的名字      | 
+   
    
 ```js
 element.classList.add('class');

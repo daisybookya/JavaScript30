@@ -8,6 +8,12 @@
 <body>
 
   <form class="search-form">
+    Search Type
+    <select name="types" id="types">
+      <option value="all">all</option>
+      <option value="city">city</option>
+      <option value="state">state</option>
+    </select>
     <input type="text" class="search" placeholder="City or State">
     <ul class="suggestions">
       <li>Filter for a city</li>
@@ -17,6 +23,59 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+const allDatas = [];
+let getData = fetch(endpoint).then((response)=>{
+  return response.json();
+}).then((data)=>{
+  allDatas.push(...data)
+  //console.log(allDatas)
+});
+
+let list = document.querySelector('.suggestions');
+let searchText = document.querySelector('.search');
+let selectTypes = document.getElementById('types');
+function matchList(){
+  let keyWord = searchText.value.toLowerCase();
+  let reg = new RegExp(keyWord,'i');
+  let searchTypes = selectTypes.value;
+  let matchData = allDatas.filter((item)=>{
+    switch(searchTypes){
+      case 'all':
+        return item.city.search(reg) > -1 || item.state.search(reg) > -1;
+      break;
+      case 'city':
+        return item.city.search(reg) > -1;
+      break;
+      case 'state':
+        return item.state.search(reg) > -1;
+      break;
+    }
+    
+  });
+  
+  displayList(matchData,keyWord,searchTypes);
+}
+function displayList(obj,letter,type){
+  let reg = new RegExp(letter,'i');
+  let element = obj.map((item)=> { 
+    let cityName = item.city.replace(reg,`<span class=hl>${letter}</span>`);
+    let stateName = item.state.replace(reg,`<span class=hl>${letter}</span>`);
+    
+    if(type == 'city'){stateName = item.state}
+    if(type == 'state'){cityName = item.city}
+
+    return `<li><span class=name>${cityName} , ${stateName}</span>
+            <span class=population>${item.population.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
+            </li>`
+  });
+  list.innerHTML = element.join('');
+}
+selectTypes.addEventListener('change',matchList);
+searchText.addEventListener('change',matchList);
+searchText.addEventListener('keyup',matchList);
+
+
 </script>
-  </body>
+
+</body>
 </html>

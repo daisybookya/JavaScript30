@@ -99,6 +99,34 @@
   </div>
 
 <script>
+  let allCheckBox = document.querySelectorAll('input[type=checkbox]');
+  let lastChecked ;
+  let isChecked = false;
+  let between = false;
+  allCheckBox.forEach(item=>{
+    item.addEventListener('click',checkMultip);
+  });
+
+  function checkMultip(e){
+    console.log(`isChecked/${isChecked}`);
+    if(isChecked){
+      if(e.shiftKey && this.checked ){
+        allCheckBox.forEach(item =>{
+          if(item == this || item == lastChecked){
+            between = !between;
+            //isChecked = !isChecked;
+            console.log(`between/${between}`);
+          }
+          if(between){
+            item.checked = true;
+          }
+        })
+      }
+    }else{
+      isChecked = !isChecked;
+    }
+    lastChecked = this;
+  }
 </script>
 </body>
 </html>

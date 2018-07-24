@@ -5,13 +5,88 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
+  <div class="types">
+      <label for="saturation">飽和度</label>
+      <input id="saturation" type="range" min="20" max="100" value="100">    
+      <label for="changeWidth">關閉筆畫寬度自動變化</label>
+      <input type="checkbox" name="changeWidth" id="changeWidth" value="true">
+      <label for="linewidth">調整筆畫寬度</label>
+      <input id="linewidth" type="range" min="1" max="100" value="50">
+  </div>
 <canvas id="draw" width="800" height="800"></canvas>
+
 <script>
+  const canvas = document.getElementById('draw');
+  const ctx = canvas.getContext('2d');
+  ctx.font = '30px 微軟正黑體';
+  ctx.fillText('-可以在畫布上自由繪圖-',10,50);
+  ctx.lineCap = 'round';
+  ctx.lineWidth = 100;
+  let isDrawing = false;
+  let direction = false;
+  let movePos = {'x': 0,'y': 0};
+  let color = 0;
+  let types = document.getElementById('saturation');
+  let checkWidth = document.getElementById('changeWidth');
+  let lineWidth = document.getElementById('linewidth');      
+  
+  function startDraw(e){
+    isDrawing = true;
+    movePos.x = e.layerX;
+    movePos.y = e.layerY;
+  };
+  function changeWidth(){
+    if(ctx.lineWidth == 100 || ctx.lineWidth == 1){
+      direction = !direction;
+      console.log(`direction:${direction}`)
+    }
+    if(direction){
+      ctx.lineWidth -=1;
+    }else{
+      ctx.lineWidth +=1;
+    }
+  }
+  function drawLine(e){
+    if(!isDrawing){
+      return false;
+    };
+    let saturation = `${types.value}%`;
+    ctx.strokeStyle = `hsl(${color}, ${saturation}, 50%)`;    
+    color += 1;
+    if(color >= 360){
+      color = 0;
+    }
+    if(checkWidth.checked){
+      ctx.lineWidth = lineWidth.value
+    }else{
+      changeWidth();
+    }
+    ctx.beginPath();
+    ctx.moveTo(movePos.x,movePos.y);
+    ctx.lineTo(e.layerX,e.layerY);
+    ctx.stroke();
+    movePos.x = e.layerX ;
+    movePos.y = e.layerY ;
+  }
+
+  canvas.addEventListener('mousedown',startDraw)
+  canvas.addEventListener('mousemove',drawLine)
+  canvas.addEventListener('mouseup',function(e){
+    isDrawing = false;
+  });
+
 </script>
 
 <style>
   html, body {
     margin:0;
+    text-align: center;
+  }
+  #draw{
+    background: #ccc;
+  }
+  .types{
+    margin: 20px auto;
   }
 </style>
 

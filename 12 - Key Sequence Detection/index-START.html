@@ -6,7 +6,31 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
+  <p>請輸入通關密碼:'believe'</p>
+  您輸入了: <span class="press"></span>
 <script>
+  let press = [];
+  let secret = 'believe';
+  const pressTxt = document.querySelector('.press');
+  window.addEventListener('keyup',(e)=>{
+    press.push(e.key);
+    press.splice(0,press.length-secret.length);
+    console.log(press);
+    pressTxt.innerHTML = press.join('-');
+    if(press.join('').includes(secret)){
+      console.log(`bingo!`);
+      cornify_add();
+    }
+  })
 </script>
+<style>
+  body{
+    font-size: 20px;
+  }
+  .press{
+    font-weight: bold;
+    font-size: 30px;
+  }
+</style>
 </body>
 </html>

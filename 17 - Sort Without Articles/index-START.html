@@ -47,6 +47,13 @@
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
 
+function checkTxt(data){
+  return data.replace(/^(a |an |the )/i,'').trim();
+}
+let newData = bands.sort((a,b)=> checkTxt(a) > checkTxt(b) ? 1:-1);
+
+document.getElementById('bands').innerHTML = newData.map((item)=> `<li>${item}</li>`).join('');
+
 </script>
 
 </body>

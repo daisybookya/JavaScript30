@@ -13,14 +13,14 @@
 * array.slice() 擷取陣列
 * array.concat() 連接陣列
 * es6-Array.from() 建立新陣列
-* es6-[...array] 淺層複製物件
+* es6-[...array] 複製陣列
 * es6-{...obj} 淺層複製物件
 * es6-Object.assign() 淺層複製物件
 * JSON.parse() 將字串轉物件
 * JSON.stringify() 將物件轉字串
-
-
-
+ 
+ 
+ 
 ### Array.from()
 
 Array.from() 方法會從類陣列（array-like）或是可迭代（iterable）物件建立一個新的 Array 實體。
@@ -54,13 +54,15 @@ Array.from({length: 5}, (v, i) => i);
 
 以上資料來源:[https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/from](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
 
+ 
+
 ### 淺層與深層複製物件
 
 以下兩種方式皆只能複製第一層的淺層物件，
 若有第二層物件，一旦改動，舊物件與新物件的資料都會更改。
 * es6-{...obj} 淺層複製物件
 * es6-Object.assign(obj) 淺層複製物件
-
+  
 若要深層複製物件，有以下兩種方式，
 使用JSON的方式蠻輕易，但function是無法被複製的，
 另外lodash的cloneDeep方法，需要引入lodash，

@@ -14,9 +14,16 @@
 
     // and we want to make a copy of it.
 
+    let copy = players;
+
+    
     // You might think we can just do something like this:
 
+
     // however what happens when we update that array?
+    //copy.push('sky')
+    copy[3] = 'sky';
+    console.log(copy,players)
 
     // now here is the problem!
 
@@ -27,11 +34,25 @@
     // So, how do we fix this? We take a copy instead!
 
     // one way
-
+    let copy2 = players.slice(); // = players.slice(0)
+    
     // or create a new array and concat the old one in
+    let copy3 = [].concat(players);
+    console.log(`copy3:${copy3}`)
 
     // or use the new ES6 Spread
+    let copy4 = [...players];
+    console.log(`copy4-es6 way: ${copy4}`)
 
+    let copy5 = Array.from(players);
+    copy4.push('dogs')
+    console.log(`copy5-es6 way: ${copy5}`)
+
+    let ex = Array.from([1, 2, 3], x => x + x);
+    let ex2 = Array.from(ex);
+    ex2[2]=100;
+    console.log(`ex:${ex}`)
+    console.log(`ex2:${ex2}`)
     // now when we update it, the original one isn't changed
 
     // The same thing goes for objects, let's say we have a person object
@@ -39,17 +60,30 @@
     // with Objects
     const person = {
       name: 'Wes Bos',
-      age: 80
+      age: 80,
+      color:{dark:{code:40}}
     };
 
     // and think we make a copy:
-
+    
     // how do we take a copy instead?
-
+    
     // We will hopefully soon see the object ...spread
+    let newPerson = {...person};
+    newPerson['gender']='male'; //有效，只改動newPerson
+    newPerson.color.dark.code = 60; //無效
+    console.log(newPerson,person)
 
+    let try1 = Object.assign({},person,{'like':'eating'})
+    try1.color.dark = 'blue'; //有效，改動所有
+    try1.age=75; //有效，只改動try1
+    console.log(try1,person)
+
+    person.color.dark = 'pink'; //有效，改動所有
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
-
+    let try2 = JSON.parse(JSON.stringify(person));
+    try2.color.dark = 'brown'; //有效，只改動try2
+    console.log(try2)
   </script>
 
 </body>

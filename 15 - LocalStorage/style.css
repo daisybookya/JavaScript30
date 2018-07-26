@@ -70,9 +70,20 @@
     .add-items {
       margin-top: 20px;
     }
-
-    .add-items input {
+    .plates span{
+      cursor: pointer;
+    }
+    .add-items input ,button{
       padding:10px;
       outline:0;
       border:1px solid rgba(0,0,0,0.1);
+    }
+    .clear{
+      width: 100%;
+      margin: 15px auto;
+      text-transform: capitalize;
+    }
+    .clear:hover{
+      background: #555;
+      color: #fff;
     }

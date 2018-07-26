@@ -23,12 +23,84 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <button class="clear">clear list</button>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
+  const getValue = addItems.querySelector('[name=item]');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const btnClear = document.querySelector('.clear');
+
+  let items = [];
+
+  function addItem(e){
+    e.preventDefault();
+    let text = getValue.value;
+    const item = {
+      text,
+      done: false
+    };
+    items.push(item);
+    console.log(items)
+    localStorage.setItem('list',JSON.stringify(items));
+    this.reset();//清空欄位
+    updateList();
+  }
+
+  function loadData(){
+    let data = localStorage.getItem('list');
+    if(data == null || data == ''){
+      itemsList.innerHTML = 'no data'
+      return false;
+    }
+
+    items = JSON.parse(data);
+      updateList();
+  }
+
+  function updateList(){
+    let newList = items.map((item,i)=>{
+      return `
+            <li>
+              <input type="checkbox" id="item${i}" ${item.done ? 'checked' : ''} />
+              <label for="item${i}" data-index=${i}>${item.text}</label>
+              <span class=del data-index=${i}>Delete</span>
+            </li>
+            `
+    });
+    itemsList.innerHTML = newList.join('');
+  }
+
+  function toggleDone(e){
+    //label flex屬性設1，等於width:100%，li整條都是有效範圍
+    //滑鼠點擊後都會點到item#input
+    if (e.target.matches('li')){
+      return false;
+    }
+    if(e.target.matches('span')){
+      let index = e.target.dataset.index;
+      items.splice(index,1);
+      console.log(`item delete!`)
+    }
+    if (e.target.matches('label')){
+      index = e.target.dataset.index; 
+      items[index].done = !items[index].done;
+    }
+    
+    localStorage.setItem('list',JSON.stringify(items));
+    updateList();
+  }
+
+  function clearList(){
+    items = [];
+    localStorage.clear();
+    updateList();
+  }
+loadData()
+addItems.addEventListener('submit',addItem);
+itemsList.addEventListener('click',toggleDone);
+btnClear.addEventListener('click',clearList);
 
 </script>
 

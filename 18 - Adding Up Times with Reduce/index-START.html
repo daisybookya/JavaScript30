@@ -182,6 +182,19 @@
     </li>
   </ul>
 <script>
+let catchTime = document.querySelectorAll('[data-time]');
+let allData = [];
+catchTime.forEach(items=> allData.push({'mins':items.dataset.time.slice(0,-3),'sed':items.dataset.time.slice(-2)}));
+let allMins = allData.reduce((total,cur)=>{return total + Number(cur.mins)},0);
+let allSeds = allData.reduce((total,cur)=>{return total + Number(cur.sed)},0);
+let newData = [allMins,allSeds];
+
+newData[0] = newData[0] + Math.floor(newData[1]/60);
+newData[1] = Number(newData[1]%60);
+newData = [Math.floor(newData[0]/60),Number(newData[0]%60),newData[1]]
+console.log(`total time: ${newData.join(':')}`);
+
+
 </script>
 </body>
 </html>

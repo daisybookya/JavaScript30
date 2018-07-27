@@ -12,7 +12,13 @@
 * canvas-getImageData()
 * canvas-putImageData()
 
+## 解題思路
 
+mediaDevices.getUserMedia()連接媒體回傳Promise -> URL.createObjectURL()創連結播放video
+
+-> 監聽事件'canplay' 同步canvas -> drawImage()繪製canvas -> getImageData()取得data
+
+-> 使用濾淨效果 -> putImageData()放到canvas上
 
 
 ## MediaDevices.getUserMedia()

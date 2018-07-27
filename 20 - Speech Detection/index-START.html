@@ -12,7 +12,31 @@
 <script>
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  let recog = new SpeechRecognition;
+  recog.interimResults = true;
+  recog.lang = 'en-US';
 
+  let p = document.createElement('p');
+  let words = document.querySelector('.words');
+  words.appendChild(p);
+
+  recog.addEventListener('result',(e)=>{
+    let tranScript = Array.from(e.results)
+                      .map(item => result[0])
+                      .map(item => result.transcript)
+                      .join('');
+    let poopScript = tranScript.replace(/poop|poo|shit|dump/gi, '💩');
+    p.textContent = poopScript;
+
+    if (e.results[0].isFinal) {
+      p = document.createElement('p');
+      words.appendChild(p);
+    }
+  });
+  
+  recog.addEventListener('end', recog.start);//restart read speech
+
+  recog.start();//read speech
 </script>
 
 

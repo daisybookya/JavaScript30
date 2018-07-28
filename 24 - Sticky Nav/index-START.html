@@ -54,7 +54,20 @@
   </div>
 
 <script>
+let {height : navheight, bottom : navY} = document.getElementById('main').getBoundingClientRect()
+let paddingTop = navheight;
+console.log(navheight,navY)
 
+function navMove(){
+  if(window.scrollY > navY){
+    document.body.classList.add('fixed');
+    document.body.style.paddingTop = `${navheight}px`
+  }else{
+    document.body.classList.remove('fixed');
+    document.body.removeAttribute('style')
+  }
+}
+window.addEventListener('scroll',navMove);
 </script>
 
 </body>

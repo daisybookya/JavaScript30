@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>👀👀👀Follow Along Nav</title>
+  <title>Follow Along Nav</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,6 @@
         <li><a href="">Contact Us</a></li>
       </ul>
     </nav>
-
     <div class="wrapper">
       <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
       <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
@@ -24,9 +23,22 @@
       <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
       <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
     </div>
-
+    <span class="highlight"></span>
   <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    let allA = document.querySelectorAll('a');
+    let highlight = document.querySelector('.highlight');
+    allA.forEach(item=> item.addEventListener('mouseenter',detectPos))
+
+    function detectPos(e){
+      console.log(e);
+      //pos = 子元素相對於父元素的距離 + 父元素相對於body的距離
+      let posX = e.target.offsetLeft + e.target.offsetParent.offsetLeft;
+      let posY = e.target.offsetTop + e.target.offsetParent.offsetTop;
+      highlight.style.width = `${e.target.offsetWidth}px`;
+      highlight.style.height = `${e.target.offsetHeight}px`;
+      highlight.style.transform = `translate(${posX}px,${posY}px)`
+      
+    }
   </script>
 </body>
 </html>

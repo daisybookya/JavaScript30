@@ -30,13 +30,16 @@
     allA.forEach(item=> item.addEventListener('mouseenter',detectPos))
 
     function detectPos(e){
-      console.log(e);
+      //console.log(e);
       //pos = 子元素相對於父元素的距離 + 父元素相對於body的距離
-      let posX = e.target.offsetLeft + e.target.offsetParent.offsetLeft;
-      let posY = e.target.offsetTop + e.target.offsetParent.offsetTop;
+      // let posX = e.target.offsetLeft + e.target.offsetParent.offsetLeft;
+      // let posY = e.target.offsetTop + e.target.offsetParent.offsetTop;
+      //es6
+      let {offsetLeft : x , offsetTop : y } = e.target;
+      let {offsetLeft : px , offsetTop : py } = e.target.offsetParent;
       highlight.style.width = `${e.target.offsetWidth}px`;
       highlight.style.height = `${e.target.offsetHeight}px`;
-      highlight.style.transform = `translate(${posX}px,${posY}px)`
+      highlight.style.transform = `translate(${x+px}px,${y+py}px)`
       
     }
   </script>

@@ -35,6 +35,32 @@
   </style>
 
 <script>
+  let hero = document.querySelector('.hero');
+  let h1 = hero.querySelector('h1');
+  let walk = 100; //基本偏準點
+
+  function shadowMove(e){
+    const {offsetWidth : heroWidth , offsetHeight : heroHeight} = hero;
+    let {offsetX:x , offsetY: y} = e;//滑鼠移動位置
+
+    if(this !== e.target){
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+
+    let walkX = Math.round((x / heroWidth * walk) - (walk/2));
+    let walkY = Math.round((y / heroHeight * walk)- (walk/2));
+
+    h1.style.textShadow = `
+      ${walkX}px ${walkY}px 0 rgba(255,0,255,0.7),
+      ${walkX * -1}px ${walkY}px 0 rgba(0,255,255,0.7),
+      ${walkY}px ${walkX * -1}px 0 rgba(0,255,0,0.7),
+      ${walkY * -1}px ${walkX}px 0 rgba(0,0,255,0.7)
+    `;
+  }
+
+  hero.addEventListener('mousemove',shadowMove);
 </script>
+
 </body>
 </html>

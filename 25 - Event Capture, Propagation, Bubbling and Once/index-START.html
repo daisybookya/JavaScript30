@@ -7,8 +7,11 @@
 <body class="bod">
 
   <div class="one">
+    one
     <div class="two">
+      two
       <div class="three">
+        three
       </div>
     </div>
   </div>
@@ -37,9 +40,22 @@
   }
 </style>
 
-<button></button>
+<button>button</button>
 <script>
+let divs = document.querySelectorAll('div');
+let btn = document.querySelector('button');
 
+function showTxt(e){
+  console.log(this.classList.value);
+  //e.stopPropagation(); // stop bubbling!
+}
+btn.addEventListener('click',()=>{
+  console.log('you click!');
+},{once:true});
+
+divs.forEach(item => item.addEventListener('click',showTxt,{
+  capture:false,once:true
+}))
 </script>
 </body>
 </html>

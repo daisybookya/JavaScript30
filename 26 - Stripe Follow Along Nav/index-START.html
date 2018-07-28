@@ -221,6 +221,32 @@
 </style>
 
 <script>
+  let btns = document.querySelectorAll('.cool > li');
+  let contextBg = document.querySelector('.dropdownBackground');
+  let nav = document.querySelector('.top');
+
+  function triggerSub(){
+    this.classList.add('trigger-enter');
+    let {width : bgWidth , height : bgHeight , top : bgTop , left : bgLeft} = this.lastElementChild.getBoundingClientRect();
+    let {top : navTop , left : navLeft} = nav.getBoundingClientRect();
+    console.log(navTop,navLeft)
+    contextBg.style.width = `${bgWidth}px`;
+    contextBg.style.height = `${bgHeight}px`;
+    contextBg.style.transform = `translate(${bgLeft - navLeft}px,${bgTop - navTop}px)`;
+    contextBg.classList.add('open');
+    if(this.classList.contains('trigger-enter')){
+      this.classList.add('trigger-enter-active');
+    }
+  }
+  function removeSub(){
+    this.classList.remove('trigger-enter','trigger-enter-active');
+    contextBg.classList.remove('open');
+  }
+
+  btns.forEach(li=>{
+    li.addEventListener('mouseenter',triggerSub);
+    li.addEventListener('mouseleave',removeSub);
+  });
 </script>
 
 </body>

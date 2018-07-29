@@ -35,6 +35,38 @@
   </div>
 
 <script>
+  let items = document.querySelector('.items');
+  let isDrag = false;
+  let lastX = 0; 
+  let lastScrollX = 0;
+  function activeItem(e,isActive=true){
+    if(isActive){
+      items.classList.add('active');
+      isDrag = true;
+      lastX = e.pageX - items.offsetLeft;
+      lastScrollX = items.scrollLeft;
+    }else{
+      items.classList.remove('active');
+      isDrag = false;
+    }
+  }
+
+  function dragItem(e){
+    if(!isDrag){
+      return false;
+    }
+    e.preventDefault();
+    let movement = (e.pageX - items.offsetLeft);
+    let walk = (lastX - movement) * 3;
+    items.scrollLeft = lastScrollX - walk; //往右拉
+    //改+walk 變往左拉
+  }
+
+  items.addEventListener('mousedown',(e)=> activeItem(e));
+  items.addEventListener('mousemove',dragItem);
+  items.addEventListener('mouseup',(e)=> activeItem(e,false));
+  items.addEventListener('mouseleave',(e)=> activeItem(e,false));
+
 </script>
 
   </body>
